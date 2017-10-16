@@ -8,7 +8,7 @@ def get_images_urls(name):
     s = r.get("https://api.cognitive.microsoft.com/bing/v7.0/images/search/?q={}".format(name),
               headers={"Ocp-Apim-Subscription-Key": "63b3ee16a46847e0be92920dd1409024"})
 
-    content = json.loads(s.content).get('value')
+    content = json.loads(s.content.decode('utf8')).get('value')
     return list(map(lambda x: x.get('contentUrl'), content))
 
 
