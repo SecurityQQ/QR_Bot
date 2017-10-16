@@ -30,9 +30,13 @@ def download_image(url):
             content = req.content
         return content
 
+def is_supporting_format(url):
+    return url[-3:] in AVAILABLE_FORMATS or url[-4] == 'jpeg'
+
 
 def smart_choice(urls):
-    filtered_urls = list(filter(lambda x: is_url(x), urls))
+    filtered_urls = list(filter(is_url, urls))
+    filtered_urls = list(filter(is_supporting_format, filtered_urls))
     if len(filtered_urls) == 0:
         return None
     return filtered_urls[0]
