@@ -2,6 +2,9 @@ from telegram.ext import Updater, MessageHandler, BaseFilter
 
 from smart_qr_codes import smart_qr_code_by_name
 import logging
+import os
+
+TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN','414610099:AAHG4Mf5lw05PxI4JY9ZP6CpTlkauCk4AAo')
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -17,7 +20,7 @@ def hello(bot, update):
         'Hello {}'.format(update.message.from_user.first_name))
 
 
-updater = Updater('414610099:AAHG4Mf5lw05PxI4JY9ZP6CpTlkauCk4AAo')
+updater = Updater(TELEGRAM_TOKEN)
 
 class IsCorrect(BaseFilter):
     def filter(self, message):
