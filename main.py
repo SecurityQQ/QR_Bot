@@ -40,7 +40,7 @@ def do_qr_code(bot, update):
     smart_qr_code_by_name(content, name, suffix=".png", save_name=None, hook=send_qr)
 
 
-isCorrectFilter = IsCorrect(
+isCorrectFilter = IsCorrect()
     
 
 echo_handler = MessageHandler(isCorrectFilter, do_qr_code)

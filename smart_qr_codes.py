@@ -23,7 +23,7 @@ def smart_qr_code_by_name(content, seed, suffix=".png", save_name=None, hook=lam
     from pprint import pprint
     import json
 
-    url = json.loads(s.content).get('value')[0].get('contentUrl')
+    url = json.loads(s.content.decode('utf8')).get('value')[0].get('contentUrl')
 
     print('url: ', url)
     import tempfile
