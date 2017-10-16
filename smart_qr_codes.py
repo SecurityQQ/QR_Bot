@@ -1,9 +1,6 @@
 from qrcode.MyQR import myqr
 from get_image import get_smart_image
 from random import randint
-
-
-import requests as r
 import os
 
 def smart_qr_code_by_name(content, name, colorized=False, suffix=".png", save_name=None, hook=lambda x: x):
@@ -27,7 +24,6 @@ def smart_qr_code_by_name(content, name, colorized=False, suffix=".png", save_na
 
     os.remove(save_name)
     os.remove(temp_file_path)
-
 
 
 if __name__ == '__main__':
