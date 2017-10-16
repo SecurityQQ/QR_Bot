@@ -41,7 +41,6 @@ def smart_qr_code_by_name(content, seed, suffix=".png", save_name=None, hook=lam
         return fp
 
 
-
 if __name__ == '__main__':
     ver, ecl, qr_name = myqr.run("http://hackupc.com/", picture="/Users/Security/Downloads/120575-200.png", contrast=1.,save_name='pen.png')
 
