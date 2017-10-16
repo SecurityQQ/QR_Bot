@@ -3,7 +3,7 @@ from get_image import get_smart_image
 from random import randint
 import os
 
-def smart_qr_code_by_name(content, name, colorized=False, suffix=".png", save_name=None, hook=lambda x: x):
+def smart_qr_code_by_name(content, name, colorized=True, suffix=".png", save_name=None, hook=lambda x: x):
     raw_image = get_smart_image(name)
     random_suffix = str(randint(1, 100000))
 
@@ -17,7 +17,10 @@ def smart_qr_code_by_name(content, name, colorized=False, suffix=".png", save_na
     with open(temp_file_path, 'wb+') as temp_file:
         temp_file.write(raw_image)
 
-    ver, ecl, qr_name = myqr.run(content, picture=temp_file_path, colorized=colorized, save_name=save_name)
+    try:
+        ver, ecl, qr_name = myqr.run(content, picture=temp_file_path, colorized=colorized, save_name=save_name)
+    except:
+        ver, ecl, qr_name = myqr.run(content, picture=temp_file_path, colorized=False, save_name=save_name)
 
     with open(save_name, 'rb') as output:
         hook(output)
@@ -27,4 +30,4 @@ def smart_qr_code_by_name(content, name, colorized=False, suffix=".png", save_na
 
 
 if __name__ == '__main__':
-    smart_qr_code_by_name('I want to hide this secret message', 'Smile')
+    smart_qr_code_by_name('I want to hide this secret message', 'penis.jpeg')
