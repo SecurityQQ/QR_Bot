@@ -1,12 +1,16 @@
 import requests as r
 import re
 import json
+import os
+
 
 AVAILABLE_FORMATS = ['png', 'jpg', 'jpeg', 'bmp']
+BING_TOKEN = os.environ.get('BING_TOKEN', '63b3ee16a46847e0be92920dd1409024')
+
 
 def get_images_urls(name):
     s = r.get("https://api.cognitive.microsoft.com/bing/v7.0/images/search/?q={}".format(name),
-              headers={"Ocp-Apim-Subscription-Key": "63b3ee16a46847e0be92920dd1409024"})
+              headers={"Ocp-Apim-Subscription-Key": BING_TOKEN})
 
     content = json.loads(s.content.decode('utf8')).get('value')
     return list(map(lambda x: x.get('contentUrl'), content))
