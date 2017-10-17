@@ -1,10 +1,17 @@
 from qrcode.MyQR import myqr
-from get_image import get_smart_image
+from get_image import get_smart_image, download_image, is_url
 from random import randint
 import os
 
-def smart_qr_code_by_name(content, name, colorized=True, suffix=".png", save_name=None, hook=lambda x: x):
-    raw_image = get_smart_image(name)
+def smart_qr_code(content, source, colorized=True, suffix=".png", save_name=None, hook=lambda x: x):
+    if is_url(source):
+        raw_image = download_image(source)
+    else:
+        raw_image = get_smart_image(source)
+    if raw_image is None:
+        hook(None)
+        return
+
     random_suffix = str(randint(1, 100000))
 
     current_pwd = os.getcwd()
@@ -29,5 +36,6 @@ def smart_qr_code_by_name(content, name, colorized=True, suffix=".png", save_nam
     os.remove(temp_file_path)
 
 
+
 if __name__ == '__main__':
-    smart_qr_code_by_name('I want to hide this secret message', 'penis.jpeg')
+    smart_qr_code('I want to hide this secret message', 'peka')

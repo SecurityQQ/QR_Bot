@@ -2,7 +2,7 @@ import requests as r
 import re
 import json
 import os
-
+from random import choice
 
 AVAILABLE_FORMATS = ['png', 'jpg', 'jpeg', 'bmp']
 BING_TOKEN = os.environ.get('BING_TOKEN', '63b3ee16a46847e0be92920dd1409024')
@@ -43,8 +43,14 @@ def smart_choice(urls):
     filtered_urls = list(filter(is_supporting_format, filtered_urls))
     if len(filtered_urls) == 0:
         return None
+    # return choice(filtered_urls[:5])
     return filtered_urls[0]
 
+def choice_gifs(urls):
+    filtered_urls = list(filter(lambda x: x[-4:] == '.gif' if len(x) > 4 else False, urls))
+    if len(filtered_urls) == 0:
+        return None
+    return filtered_urls[0]
 
 def get_smart_image(name):
     extention = name.split('.')[-1]
@@ -60,3 +66,13 @@ def get_smart_image(name):
     best_url = smart_choice(urls)
     print(best_url)
     return download_image(best_url)
+
+def get_smart_gif(name):
+    extention = name.split('.')[-1]
+    if 'gif' not in extention:
+        extention = 'gif'
+        name = name + ' .' + extention
+    urls = get_images_urls(name)
+    best_url = choice_gifs(urls)
+    return download_image(best_url)
+
