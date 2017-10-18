@@ -16,7 +16,7 @@ logging.basicConfig(
 
 
 def start(bot, update):
-    update.message.reply_text("Hello! I'm a very creative bot! I do QRCodes from your content and description. Just send me a link and a name of object you want to display on your QR-Code")
+    update.message.reply_text("Hello! I'm a very creative bot! I do QRCodes from your content and description. Just send me a /create command to create new QR codes")
 
 
 def hello(bot, update):
@@ -42,7 +42,6 @@ def do_qr_code(bot, update):
                        photo=qr,
                        caption=name)
 
-
     smart_qr_code_by_name(content, name, suffix=".png", save_name=None, hook=send_qr)
 
 
@@ -60,13 +59,12 @@ def do_inline_qr_code(bot, update):
 
     def send_qr(qr):
         photo_info = bot.send_photo(update.inline_query.from_user.id,
-                       photo=qr,
-                       caption=name)
+                                    photo=qr,
+                                    caption=name)
 
         results.append(InlineQueryResultCachedPhoto(id=uuid4(), photo_file_id=photo_info.photo[0].file_id))
 
         update.inline_query.answer(results)
-
 
     smart_qr_code_by_name(content, name, suffix=".png", save_name=None, hook=send_qr)
 
@@ -129,6 +127,8 @@ def create_new_qrcode_continue(bot, update, chat_data):
             bot.send_photo(update.message.chat_id,
                            photo=qr,
                            caption=img_description)
+            bot.send_message(chat_id=update.message.chat_id, text="Use /create command to create a new QR code")
+
         if image_path:
             image_source = image_path
         # elif video_path:
@@ -162,4 +162,3 @@ while True:
     except Exception as e:
         sleep(3)
         print("Error occured: {}. Restarting...".format(e))
-
